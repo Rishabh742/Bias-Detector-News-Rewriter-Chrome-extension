@@ -1,0 +1,92 @@
+
+8. Deployment Instructions for the Bias Detector Project 
+
+To deploy the Bias Detector & News Rewriter, we need to:
+
+   (1) Deploy the Backend (Flask API) on Render/Vercel/AWS
+   (2) Host the Database (PostgreSQL) on Supabase/NeonDB
+   (3) Deploy the Frontend (React Dashboard) on Vercel/Netlify
+   (4) Publish the Chrome Extension on the Chrome Web Store
+
+  1. Deploying Flask API on Render
+    
+    Render offers free hosting for Flask apps.
+
+ Steps:
+
+    (1) Create a requirements.txt file for dependencies:
+
+        flask
+	flask-cors
+	psycopg2-binary
+	nltk
+	requests
+
+    (2) Create a Render account and add a new Web Service.
+
+    (3) Connect your GitHub repository containing the Flask API.
+
+    (4) Set the Start Command to:
+
+	python app.py
+
+    (5) Add Environment Variables:
+
+       DATABASE_URL: (Your PostgreSQL connection string)
+
+       Once deployed, you’ll get a public URL like:
+
+	 https://bias-detector-api.onrender.com
+
+
+   2. Hosting PostgreSQL Database on Supabase
+
+      Supabase provides a managed PostgreSQL database with free hosting.
+
+Steps:
+
+    (1) Sign up at https://supabase.com
+    (2) Create a new project → Copy the Database Connection String
+    (3) Run this SQL to create the articles table:
+
+
+  CREATE TABLE articles (
+     id SERIAL PRIMARY KEY,
+     url TEXT UNIQUE NOT NULL,
+     content TEXT NOT NULL, 
+     sentiment_score FLOAT,
+     biased_words TEXT[],
+     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   ); 
+
+    (4) Use the DATABASE_URL from Supabase in your Flask API.
+
+ 
+   3. Deploying React Dashboard on Vercel
+
+      (1) Install Vercel CLI:
+
+	 npm install -g vercel
+
+      (2) Go to your React project folder and deploy:
+
+         vercel
+
+      (3) Configure API requests in BiasChart.js:
+
+	 axios.get("https://bias-detector-api.onrender.com/get_bias_data")
+
+      (4) Vercel will generate a live URL like:
+
+	 https://bias-dashboard.vercel.app
+
+
+   4. Publishing the Chrome Extension
+
+Steps:
+    
+      (1) Create a Developer Account at Chrome Web Store.
+       
+      (2) Zip the extension folder (manifest.json, content.js, popup.html).
+
+      (3) Upload it to the Chrome Web Store and submit for review.

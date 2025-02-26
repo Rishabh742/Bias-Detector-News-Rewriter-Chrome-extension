@@ -1,0 +1,27 @@
+
+1. Chrome Extension Development 
+
+A Chrome extension is a small software program that customizes the browsing experience. It consists of a manifest file, content scripts, background 
+scripts, and a user interface (popup and options pages).
+
+For our bias detector, the manifest.json file defines permissions, scripts, and settings. Content scripts interact with web pages, while background 
+scripts handle processing.
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>Bias Detector</title>
+
+    <script src="popup.js" defer></script>
+</head>
+
+<body>
+    <h2>Bias Detector</h2>
+
+    <button id="analyze">Analyze Page</button>
+
+</body>
+
+</html>
